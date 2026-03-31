@@ -3,10 +3,17 @@ int CityHealth = 15;
 int RoundNum = 1;
 int CannonDamage = 1;
 
-
+/*
 Console.WriteLine("Player One: Choose the Manticore's distance from the city (0 to 100)");
 int Distance = Int32.Parse(Console.ReadLine());
 Console.Clear();
+
+// Old version with two players
+
+*/
+
+Console.WriteLine("The Manticore is on its way! Shoot it down before it is too late. (Select a number between 0-100 to aim)");
+int Distance = new Random().Next(0,100);
 
 while ((ManticoreHealth >= 0) || (CityHealth >= 0))
 {
