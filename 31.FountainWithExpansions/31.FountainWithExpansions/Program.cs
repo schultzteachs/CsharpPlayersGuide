@@ -1,6 +1,8 @@
 ﻿
 
+
 NewGame();
+
 void NewGame()
 {
     Console.WriteLine("Would you like to unlock the fountain of objects? Press y and enter");
@@ -9,14 +11,21 @@ void NewGame()
     {
 
         Console.WriteLine("New game starting!");
+        
         Board GameBoard = new Board();
         GameManager newGame = new GameManager();
         newGame.GameOn = true;
         Console.WriteLine($"Welcome, {newGame.Player.Name}!");
-
+        newGame.TimeKeeper.StartTime();//here to start time
+        
         while (newGame.GameOn == true)
         {
             newGame.Update();
+        }
+        if (newGame.GameOn != true)
+        {
+            TimeSpan time = newGame.TimeKeeper.GetTimeElapsed(newGame.TimeKeeper.StartTime(), newGame.TimeKeeper.EndTime());
+            Console.WriteLine($"Time elapsed: {time}");
         }
     }
     else
@@ -107,6 +116,7 @@ public class GameManager
 
     public Board Gameboard = new Board();
     public Player Player = new Player();
+    public TimeKeeper TimeKeeper = new TimeKeeper();
     public int[] PlayerPos = [0, 0];
     private bool Winnable = false;
     public bool GameOn = true;
@@ -173,7 +183,9 @@ public class GameManager
                 System.Console.Beep();
                 Console.ResetColor();
                 this.GameOn = false;
-
+                //here to stop time
+                this.TimeKeeper.EndTime();
+                Console.WriteLine("It took you ");
             }
             else
             {
@@ -190,6 +202,7 @@ public class GameManager
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("You fell into the pit!");
             Console.ResetColor();
+            this.TimeKeeper.EndTime();
             return; 
         }
         int xDistance = Math.Abs(PlayerPos[0] - PitLoca[0]);
@@ -211,8 +224,9 @@ public class GameManager
         {
             GameOn = false;
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("You fell into the pit!");
+            Console.WriteLine("You were eaten by the Amarok!");
             Console.ResetColor();
+            this.TimeKeeper.EndTime();
             return;
         }
         int xDistance = Math.Abs(PlayerPos[0] - AmaLoca[0]);
@@ -220,9 +234,30 @@ public class GameManager
 
         if (xDistance <= 1 && yDistance <= 1)
         {
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("Be careful! You sense the pit room close...");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Be careful! You smell the stench of an Amarok...");
             Console.ResetColor();
         }
+    
+    }
+    
+}
+
+public record TimeKeeper
+{
+    public DateTime StartTime()
+    {
+        DateTime starttime = DateTime.Now;
+        return starttime;
+
+    }
+    public DateTime EndTime()
+    {
+        DateTime finishTime = DateTime.Now;
+        return finishTime;
+    }
+    public TimeSpan GetTimeElapsed(DateTime srt, DateTime fin)
+    {
+        return (fin - srt);
     }
 }
