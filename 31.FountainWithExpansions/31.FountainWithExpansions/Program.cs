@@ -24,8 +24,8 @@ void NewGame()
         }
         if (newGame.GameOn != true)
         {
-            TimeSpan time = newGame.TimeKeeper.GetTimeElapsed(newGame.TimeKeeper.StartTime(), newGame.TimeKeeper.EndTime());
-            Console.WriteLine($"Time elapsed: {time}");
+            TimeSpan time = newGame.TimeKeeper.GetTimeElapsed();
+            Console.WriteLine($"Time elapsed: {time.TotalSeconds}");
         }
     }
     else
@@ -230,7 +230,7 @@ public class GameManager
             return;
         }
         int xDistance = Math.Abs(PlayerPos[0] - AmaLoca[0]);
-        int yDistance = Math.Abs(PlayerPos[1] - PitLoca[1]);
+        int yDistance = Math.Abs(PlayerPos[1] - AmaLoca[1]);
 
         if (xDistance <= 1 && yDistance <= 1)
         {
@@ -245,19 +245,21 @@ public class GameManager
 
 public record TimeKeeper
 {
+    public DateTime starttime { get; set; }
+    public DateTime finishTime { get; set; }
     public DateTime StartTime()
     {
-        DateTime starttime = DateTime.Now;
+        starttime = DateTime.Now;
         return starttime;
 
     }
     public DateTime EndTime()
     {
-        DateTime finishTime = DateTime.Now;
+        finishTime = DateTime.Now;
         return finishTime;
     }
-    public TimeSpan GetTimeElapsed(DateTime srt, DateTime fin)
+    public TimeSpan GetTimeElapsed()
     {
-        return (fin - srt);
+        return (finishTime - starttime);
     }
 }
