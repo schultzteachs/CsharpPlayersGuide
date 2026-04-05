@@ -7,7 +7,7 @@
     Console.WriteLine("What would you like the robot to do? Enter 3 ");
     Robot newRobot = new Robot();
 
-    for (int i = 0; i < newRobot.Commands.Length; i++)
+    for (int i = 0; i < newRobot.Commands.Count; i++)
     {
         string response = Console.ReadLine().ToLower();
 
@@ -45,7 +45,10 @@ public class Robot
     public int X { get; set; }
     public int Y { get; set; }
     public bool IsPowered { get; set; }
-    public IRobotCommand?[] Commands { get; } = new IRobotCommand?[3];
+    
+    public List<IRobotCommand> Commands = new List<IRobotCommand>();
+    //old, array way
+    //public IRobotCommand?[] Commands { get; } = new IRobotCommand?[3];
     public void Run()
     {
         foreach (IRobotCommand? command in Commands)
