@@ -1,9 +1,25 @@
 ﻿
-Random _random = new Random();
+Console.WriteLine("Give a number:");
 
-int RollDie(int sides = 6) => _random.Next(sides) + 1;
+while (true)
+{
+    string s = Console.ReadLine();
 
-Console.WriteLine("Choose a number of sides for the die...");
-int Num = int.Parse(Console.ReadLine());
-
-RollDie(Num);
+    if (int.TryParse(s, out int result))
+    {
+        Console.WriteLine("That is a number!");
+        break;
+    }
+    else if (double.TryParse(s, out double Dresult))
+    {
+        Console.WriteLine("That is a decimal, try again!");
+    }
+    else if (bool.TryParse(s, out bool Bresult))
+    {
+        Console.WriteLine("That is a boolean, try again!");
+    }
+    else
+    {
+        Console.WriteLine("That is not a number, try again!");
+    }
+}
