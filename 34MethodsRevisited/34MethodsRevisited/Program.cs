@@ -11,12 +11,28 @@
 
 //Coin toss sim method that returns bool with optional changes in probabilities 
 
+public static class Challenge2
+{
+    public static double NextDouble(this Random random, double scale)
+    {
+        
+        double result = random.NextDouble() * scale;
+        return result;
+    }
 
+    public static string NextString(this Random random, params string[] directions)
+    {
+        int numItems = directions.Count();
+        int pick = random.Next(numItems);
+        return directions[pick];
+    }
 
-
-
-
-
+    public static bool CoinFlip(this Random random, double prob = 0.5)
+    {
+        bool result = random.NextDouble() < prob;
+        return result;
+    }
+}
 
 
 
@@ -24,7 +40,6 @@
 
 public class Challenge1
 {
-
 
     public void NumberParser()
     {
