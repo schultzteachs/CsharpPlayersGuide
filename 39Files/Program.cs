@@ -25,26 +25,26 @@ else
 Console.WriteLine("Ready to play? Hit as many keys as you can! Press enter when done.");
 bool GameOn = true;
 
-try
-{
+
     while (GameOn)
     {
         ConsoleKeyInfo key = Console.ReadKey(true);
         Console.WriteLine(key.Key);
         if (key.Key == ConsoleKey.Enter)
         {
-            throw GAMEOVER;
+            GameOn = false;
+            break;
         }
         PlayerScore++;
         Console.WriteLine($"Current score: {PlayerScore}");
         
     }
-}
-catch (Exception)
-{
-    GameOn = false;
+
+
+
+    
     Console.WriteLine($"Good job, {PlayerName}! Your score is:{PlayerScore}");
-}
+
 File.WriteAllText($"{PlayerName}.txt", PlayerScore.ToString());
 
 
